@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.TodoMapper">
+
+<select id="getList" resultType="org.zerock.domain.TodoVO">
+<![CDATA[
+SELECT * FROM tbl_todo where num > 0
+]]>
+</select>
+
+<insert id="insert">
+INSERT INTO tbl_todo (num, title, writer)
+VALUES (seq_todo.nextval, #{title}, #{writer})
+</insert>
+
+<insert id="insertSelectKey">
+	<selectKey keyProperty="num" order="BEFORE" resultType="long">
+		SELECT seq_todo.nextval from dual
+	</selectKey>
+	INSERT INTO tbl_todo (num, title, writer)
+	VALUES (#{num}, #{title}, #{writer})
+</insert>
+
+<select id="read" resultType="org.zerock.domain.TodoVO">
+	SELECT * FROM tbl_todo WHERE num = #{num}
+</select>
+
+<delete id="delete">
+	DELETE FROM tbl_todo WHERE num = #{num}
+</delete>
+
+<update id="update">
+	UPDATE tbl_todo
+	SET title = #{title},
+	writer = #{writer}
+	WHERE num = #{num}
+
+</update>
+</mapper>
