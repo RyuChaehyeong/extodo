@@ -50,6 +50,8 @@
 			      <td>
 			      <c:url value="/todo/get" var="boardLink">
 			      	<c:param value="${todo.num }" name="num"></c:param>
+			      	<c:param value="${pageMaker.cri.pageNum }" name="pageNum"/>
+			      	<c:param value="${pageMaker.cri.amount }" name="amount"/>
 			      </c:url>
 			      <a href="${boardLink }"><c:out value="${todo.title }"/></a>
 			      </td>
@@ -85,6 +87,65 @@
   </div>
 </div>
 
+
+<div class="container-sm mb-3 mt-3">
+	<div class="row justify-content-center" >
+		<nav aria-label="Page navigation example">
+		  <ul class="pagination">
+		  
+		  <c:if test="${pageMaker.prev }">
+		  <!-- 
+		  	<c:url value="/todo/list" var="prevLink">
+		  		<c:param name="pageNum" value="${pageMaker.startPage-1}"/>
+		  		<c:param name="amount" value="${pageMaker.cri.amount}"/>
+		  	</c:url>
+		   -->
+		    <li class="page-item">
+		    <!-- <a class="page-link" href="${prevLink }">Previous</a> -->
+		    <a class="page-link" href="${pageMaker.startPage-1 }">Previous</a>
+		    </li>
+		  </c:if>
+		  
+		  <c:forEach var="pageNo" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+		  <!-- 
+		  	<c:url value="/todo/list" var="pageLink">
+		  		<c:param name="pageNum" value="${pageNo }"/>
+		  		<c:param name="amount" value="${pageMaker.cri.amount }"></c:param>
+		  	</c:url>
+		   -->
+		    <li class="page-item ${pageMaker.cri.pageNum eq pageNo ? 'active' : '' }">
+		   <!--  <a class="page-link" href="${pageLink }">${pageNo }</a>  -->
+		   <a class="page-link" href="${pageNo }">${pageNo }</a>
+		    </li>
+		  </c:forEach>
+			
+		    
+   		  <c:if test="${pageMaker.next }">
+   		  <!-- 
+   		  	<c:url value="/todo/list" var="nextLink">
+		  		<c:param name="pageNum" value="${pageMaker.endPage+1}"/>
+		  		<c:param name="amount" value="${pageMaker.cri.amount}"/>
+		  	</c:url>
+   		   -->
+		    <li class="page-item">
+		    <!-- <a class="page-link" href="${nextLink }">Next</a> -->
+		    <a class="page-link" href="${pageMaker.endPage+1 }">Next</a>
+		    </li>		   
+		  </c:if>
+		  
+		  </ul>
+		</nav>
+	</div>
+</div>
+
+<div class="d-none"> 
+	<form id="actionForm" action="${root }/todo/list">
+		<input name="pageNum" value="${pageMaker.cri.pageNum }"/>
+		<input name="amount" value="${pageMaker.cri.amount }"/>
+		<input type="submit">
+	</form>
+</div>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	var result = '<c:out value="${result}"/>';
@@ -115,6 +176,17 @@ $(document).ready(function(){
 		$("#myModal").modal("show");
 		
 	}
+	
+	//pagination class의 a element가 3개 있는데 걔네가 첨에 /root/todo/list 로 다 같고 뒤에 queryString만 숫자로 달라서 이런 방법을 씀
+	var actionForm = $("#actionForm");
+	$(".pagination a").click(function(e) {
+		e.preventDefault();
+		
+		// 숫자가 링크로 바뀜 /root/todo/6 -> /root/todo/list?pageNum=#&amount=10
+		actionForm.find("[name='pageNum']").val($(this).attr('href'));
+		
+		actionForm.submit();
+	});
 });
 </script>
 </body>

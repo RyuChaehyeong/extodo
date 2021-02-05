@@ -3,6 +3,7 @@ package org.zerock.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.TodoVO;
 import org.zerock.mapper.TodoMapper;
 
@@ -44,8 +45,20 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
+	public List<TodoVO> getListWithPaging(Criteria cri) {
+		return mapper.getListWithPaging(cri);
+	}
+
+	@Override
+	public int getTotal() {
+		return mapper.getTotalCount();
+	}
+/*
+	@Override
 	public List<TodoVO> getList() {
 		return mapper.getList();
 	}
-
+*/
+	
+	
 }

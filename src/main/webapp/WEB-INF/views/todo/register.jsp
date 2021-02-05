@@ -2,6 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<u:navbar></u:navbar>
 <div class="container-sm mb-3">
 	<div class="row" style="margin-left: 5px;">
 		<div class="col-12">
@@ -28,7 +30,7 @@
 	
 	<div class="row">
 		<div class="col-12">
-		<form method="post" action="${pageContext.request.contextPath }/todo/register" style="border: 1px solid gray; padding: 20px; margin: 15px">
+		<form method="post" action="${root }/todo/register" style="border: 1px solid gray; padding: 20px; margin: 15px">
 
 
 		  <div class="form-column">

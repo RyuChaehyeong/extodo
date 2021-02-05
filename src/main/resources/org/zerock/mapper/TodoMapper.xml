@@ -11,6 +11,24 @@ SELECT * FROM tbl_todo where num > 0
 ]]>
 </select>
 
+<select id="getListWithPaging" resultType="org.zerock.domain.TodoVO">
+<![CDATA[
+	SELECT  
+		num, title, writer, duedate
+	
+	FROM
+	(SELECT 
+		 ROW_NUMBER() OVER (ORDER BY num DESC) rn,
+		 num, title, writer, duedate
+		 
+	FROM
+		 tbl_todo)
+	
+	WHERE rn between ((#{pageNum}-1) * #{amount}) + 1 and #{pageNum} * #{amount}
+]]>
+</select>
+
+
 <insert id="insert">
 INSERT INTO tbl_todo (num, title, writer)
 VALUES (seq_todo.nextval, #{title}, #{writer})
@@ -39,4 +57,9 @@ VALUES (seq_todo.nextval, #{title}, #{writer})
 	WHERE num = #{num}
 
 </update>
+
+<select id="getTotalCount" resultType="int">
+SELECT count(*) FROM tbl_todo
+</select>
+
 </mapper>

@@ -2,11 +2,14 @@ package org.zerock.mapper;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.TodoVO;
 
 import lombok.Setter;
@@ -25,6 +28,23 @@ public class TodoMapperTests {
 		mapper.getList().forEach(todo -> log.info(todo));
 	}
 	
+	@Test
+	public void testPaging() {
+		Criteria cri = new Criteria(1, 5);
+		List<TodoVO> list = mapper.getListWithPaging(cri);
+		
+		assertEquals(5, list.size());
+		
+		cri = new Criteria(1, 10);
+		list = mapper.getListWithPaging(cri);
+		
+		assertEquals(10, list.size());
+		
+		cri = new Criteria(2, 5);
+		list = mapper.getListWithPaging(cri);
+		
+		list.forEach(todo -> log.info("¹øÈ£:" + todo.getNum()));
+	}
 	@Test
 	public void testInsert() {
 		TodoVO todo = new TodoVO();

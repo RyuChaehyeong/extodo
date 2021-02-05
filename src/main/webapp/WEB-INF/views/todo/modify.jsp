@@ -2,6 +2,8 @@
   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +21,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<u:navbar></u:navbar>
 <div class="container-sm mb-3">
 	<div class="row" style="margin-left: 5px;">
 		<div class="col-12">
@@ -45,7 +48,11 @@
 		      <input value='<c:out value="${todo.writer }"/>' name="writer" type="text" class="form-control" id="input-writer">
 		    </div>
 		  </div>
-	  
+	  	
+	  	<input type="hidden" value="${cri.pageNum }" name="pageNum"/>
+	  	<input type="hidden" value="${cri.amount }" name="amount"/>
+	  	
+	  	
 	  	<button type="submit" class="btn btn-primary" style="margin: 17px;">수정완료</button>
 	  	<button id="remove-btn" type="submit" class="btn btn-primary" style="margin: 17px;">삭제</button>
 		</form>

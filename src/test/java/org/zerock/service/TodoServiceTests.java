@@ -2,12 +2,14 @@ package org.zerock.service;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.TodoVO;
 import org.zerock.mapper.TodoMapperTests;
 
@@ -40,11 +42,21 @@ public class TodoServiceTests {
 		log.info("积己等 且老 锅龋: " + todo.getNum());
 	}
 	
+	/*
 	@Test
 	public void testGetList() {
 		
 		service.getList().forEach(todo -> log.info(todo));
 	}
+	*/
+	
+	@Test
+	public void testGetListWithPaging() {
+		Criteria cri = new Criteria(1, 10);
+		List<TodoVO> list = service.getListWithPaging(cri);
+		assertEquals(10, list.size());
+	}
+	
 	
 	@Test
 	public void testRead() {

@@ -16,15 +16,25 @@
 <script
   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$("#my-link").click(function(e){
+			e.preventDefault();	
+			//
+			//
+			//
+			
+		});
+	});
+</script>
+
 <title>Insert title here</title>
 </head>
 <body>
-<div class="jumbotron">
-  <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-primary btn-lg" href="${root }/todo/list" role="button">리스트보기</a>
+<h1>link event</h1>
+<div>
+	<a id="my-link" href="https://www.daum.net">daum</a>
 </div>
 </body>
 </html>

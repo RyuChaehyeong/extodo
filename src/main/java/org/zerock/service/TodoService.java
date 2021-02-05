@@ -2,6 +2,7 @@ package org.zerock.service;
 
 import java.util.List;
 
+import org.zerock.domain.Criteria;
 import org.zerock.domain.TodoVO;
 
 public interface TodoService {
@@ -14,5 +15,9 @@ public interface TodoService {
 	
 	public boolean remove(Long num);
 	
-	public List<TodoVO> getList();
+	//public List<TodoVO> getList();
+	
+	public List<TodoVO> getListWithPaging(Criteria cri);
+
+	public int getTotal();
 }
