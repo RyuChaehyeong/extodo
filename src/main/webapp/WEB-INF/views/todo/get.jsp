@@ -62,6 +62,8 @@
 				<c:param value="${todo.num }" name="num"></c:param>
 				<c:param value="${cri.pageNum }" name="pageNum"></c:param>
 				<c:param value="${cri.amount }" name="amount"></c:param>
+				<c:param value="${cri.type }" name="type"></c:param>
+				<c:param value="${cri.keyword }" name="keyword"></c:param>
 			</c:url>
 			
 			<a href="${modifyLink }" class="btn btn-secondary"> 수정 </a>

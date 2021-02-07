@@ -19,5 +19,5 @@ public interface TodoService {
 	
 	public List<TodoVO> getListWithPaging(Criteria cri);
 
-	public int getTotal();
+	public int getTotal(Criteria cri);
 }

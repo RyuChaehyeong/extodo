@@ -29,6 +29,31 @@ public class TodoMapperTests {
 	}
 	
 	@Test
+	public void testSearch1() {
+		Criteria cri = new Criteria();
+		cri.setType("T");
+		cri.setKeyword("test");
+		mapper.getListWithPaging(cri);
+	}
+	
+	@Test
+	public void testSearch2() {
+		Criteria cri = new Criteria();
+		cri.setType("W");
+		cri.setKeyword("test");
+		mapper.getListWithPaging(cri);
+	}
+	
+	@Test
+	public void testSearch3() {
+		Criteria cri = new Criteria();
+		cri.setType("TW");
+		cri.setKeyword("user");
+		mapper.getListWithPaging(cri);
+	}
+	
+	//검색 조건이 없는 경우에 잘 돌아가는 것 확인! 
+	@Test
 	public void testPaging() {
 		Criteria cri = new Criteria(1, 5);
 		List<TodoVO> list = mapper.getListWithPaging(cri);

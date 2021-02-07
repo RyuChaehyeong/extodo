@@ -52,6 +52,9 @@
 			      	<c:param value="${todo.num }" name="num"></c:param>
 			      	<c:param value="${pageMaker.cri.pageNum }" name="pageNum"/>
 			      	<c:param value="${pageMaker.cri.amount }" name="amount"/>
+			      	<c:param value="${pageMaker.cri.type }" name="type"/>
+			      	<c:param value="${pageMaker.cri.keyword }" name="keyword"/>
+			      	
 			      </c:url>
 			      <a href="${boardLink }"><c:out value="${todo.title }"/></a>
 			      </td>
@@ -98,6 +101,8 @@
 		  	<c:url value="/todo/list" var="prevLink">
 		  		<c:param name="pageNum" value="${pageMaker.startPage-1}"/>
 		  		<c:param name="amount" value="${pageMaker.cri.amount}"/>
+		  		<c:param name="type" value="${pageMaker.cri.type}"/>
+		  		<c:param name="keyword" value="${pageMaker.cri.keyword}"/>
 		  	</c:url>
 		   -->
 		    <li class="page-item">
@@ -111,6 +116,8 @@
 		  	<c:url value="/todo/list" var="pageLink">
 		  		<c:param name="pageNum" value="${pageNo }"/>
 		  		<c:param name="amount" value="${pageMaker.cri.amount }"></c:param>
+		  		<c:param name="type" value="${pageMaker.cri.type}"/>
+		  		<c:param name="keyword" value="${pageMaker.cri.keyword}"/>
 		  	</c:url>
 		   -->
 		    <li class="page-item ${pageMaker.cri.pageNum eq pageNo ? 'active' : '' }">
@@ -125,6 +132,8 @@
    		  	<c:url value="/todo/list" var="nextLink">
 		  		<c:param name="pageNum" value="${pageMaker.endPage+1}"/>
 		  		<c:param name="amount" value="${pageMaker.cri.amount}"/>
+		  		<c:param name="type" value="${pageMaker.cri.type}"/>
+		  		<c:param name="keyword" value="${pageMaker.cri.keyword}"/>
 		  	</c:url>
    		   -->
 		    <li class="page-item">
@@ -142,6 +151,9 @@
 	<form id="actionForm" action="${root }/todo/list">
 		<input name="pageNum" value="${pageMaker.cri.pageNum }"/>
 		<input name="amount" value="${pageMaker.cri.amount }"/>
+		<input name="type" value="${pageMaker.cri.type }"/>
+		<input name="keyword" value="${pageMaker.cri.keyword }"/>
+		
 		<input type="submit">
 	</form>
 </div>

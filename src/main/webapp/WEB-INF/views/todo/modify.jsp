@@ -51,6 +51,8 @@
 	  	
 	  	<input type="hidden" value="${cri.pageNum }" name="pageNum"/>
 	  	<input type="hidden" value="${cri.amount }" name="amount"/>
+	  	<input type="hidden" value="${cri.type }" name="type"/>
+	  	<input type="hidden" value="${cri.keyword }" name="keyword"/>
 	  	
 	  	
 	  	<button type="submit" class="btn btn-primary" style="margin: 17px;">수정완료</button>

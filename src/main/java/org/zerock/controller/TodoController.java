@@ -41,7 +41,7 @@ public class TodoController {
 	@GetMapping("/list")
 	public void list(@ModelAttribute("cri") Criteria cri, Model model) {
 		List<TodoVO> list = service.getListWithPaging(cri);
-		int total = service.getTotal();
+		int total = service.getTotal(cri);
 		PageDTO dto = new PageDTO(cri, total);
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", dto);
@@ -91,6 +91,8 @@ public class TodoController {
 		}
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/todo/list";
 	}
@@ -104,6 +106,8 @@ public class TodoController {
 		}
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		return "redirect:/todo/list";
 	}
 }

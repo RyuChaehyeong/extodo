@@ -23,6 +23,6 @@ public interface TodoMapper {
 	
 	public int update(TodoVO todo);
 
-	public int getTotalCount();
+	public int getTotalCount(Criteria cri);
 	
 }

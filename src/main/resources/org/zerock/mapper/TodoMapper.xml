@@ -5,6 +5,22 @@
 
 <mapper namespace="org.zerock.mapper.TodoMapper">
 
+<sql id="criteria">
+<where>
+		<foreach item="type" collection="typeArr" separator="OR">
+			<choose>
+				<when test="type == 'T'.toString()">
+					title LIKE '%' || #{keyword} || '%'
+				</when>
+				
+				<when test="type == 'W'.toString()">
+					writer LIKE '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</foreach>
+	</where>
+</sql>
+
 <select id="getList" resultType="org.zerock.domain.TodoVO">
 <![CDATA[
 SELECT * FROM tbl_todo where num > 0
@@ -22,8 +38,15 @@ SELECT * FROM tbl_todo where num > 0
 		 num, title, writer, duedate
 		 
 	FROM
-		 tbl_todo)
+		 tbl_todo
+]]>
+		<include refid="criteria"></include>
 	
+	
+	
+
+<![CDATA[	
+		 )
 	WHERE rn between ((#{pageNum}-1) * #{amount}) + 1 and #{pageNum} * #{amount}
 ]]>
 </select>
@@ -60,6 +83,7 @@ VALUES (seq_todo.nextval, #{title}, #{writer})
 
 <select id="getTotalCount" resultType="int">
 SELECT count(*) FROM tbl_todo
+	<include refid="criteria"></include>
 </select>
 
 </mapper>
