@@ -19,7 +19,8 @@
 	
 	<update id="update">
 		update tbl_todo_reply
-		set reply = #{reply}
+		set reply = #{reply}, updatedate=sysdate
+		where rno = #{rno}
 	</update>
 	
 	<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">

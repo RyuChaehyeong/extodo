@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyVO;
 import org.zerock.mapper.ReplyMapper;
+import org.zerock.mapper.TodoMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -19,9 +21,14 @@ public class ReplyServiceImpl implements ReplyService {
 
 	private ReplyMapper mapper;
 	
+	private TodoMapper mapper2;
+	
 	@Override
+	@Transactional
 	public int regiter(ReplyVO vo) {
+		mapper2.updateReplyCnt(vo.getNum(), 1);
 		return mapper.insert(vo);
+		
 	}
 
 	@Override
@@ -35,7 +42,10 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
+	@Transactional
 	public int remove(Long rno) {
+		ReplyVO vo = mapper.read(rno);
+		mapper2.updateReplyCnt(vo.getNum(), -1);
 		return mapper.delete(rno);
 	}
 

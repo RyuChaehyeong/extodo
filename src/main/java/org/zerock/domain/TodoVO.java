@@ -10,4 +10,5 @@ public class TodoVO {
 	private String title;
 	private String writer;
 	private Date dueDate;
+	private int replyCnt;
 }

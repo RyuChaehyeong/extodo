@@ -56,7 +56,12 @@
 			      	<c:param value="${pageMaker.cri.keyword }" name="keyword"/>
 			      	
 			      </c:url>
-			      <a href="${boardLink }"><c:out value="${todo.title }"/></a>
+			      <a href="${boardLink }">
+			    	  <c:out value="${todo.title }"/>
+			    	  <c:if test="${todo.replyCnt gt 0}">
+			    	  <span class="badge badge-info">${todo.replyCnt }</span>
+			    	  </c:if>
+			      </a>
 			      </td>
 			      <td><fmt:formatDate pattern="yyyy/MM/dd" value= "${todo.dueDate }"/></td>
 			      <td><c:out value="${todo.writer }"/></td>

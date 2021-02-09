@@ -30,12 +30,12 @@ SELECT * FROM tbl_todo where num > 0
 <select id="getListWithPaging" resultType="org.zerock.domain.TodoVO">
 <![CDATA[
 	SELECT  
-		num, title, writer, duedate
+		num, title, writer, duedate, replyCnt
 	
 	FROM
 	(SELECT 
 		 ROW_NUMBER() OVER (ORDER BY num DESC) rn,
-		 num, title, writer, duedate
+		 num, title, writer, duedate, replyCnt
 		 
 	FROM
 		 tbl_todo
@@ -86,4 +86,9 @@ SELECT count(*) FROM tbl_todo
 	<include refid="criteria"></include>
 </select>
 
+
+<update id="updateReplyCnt">
+	update tbl_todo set replycnt = replycnt + #{amount}
+	where num = #{num}
+</update>
 </mapper>
