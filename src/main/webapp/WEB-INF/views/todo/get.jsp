@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,15 @@
 <script>
 var app = '${root}';
 var num = ${todo.num };
+var replyer = null;
+<sec:authorize access="isAuthenticated()">
+replyer = '<sec:authentication property="principal.username"/>';
+</sec:authorize>
+var csrfHeaderName = "${_csrf.headerName}"
+var csrfTokenValue = "${_csrf.token}"
+
 </script>
+
 <meta charset="UTF-8">
 <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -20,7 +29,6 @@ var num = ${todo.num };
   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
   src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script type="text/javascript" src="${root }/resources/js/reply.js"></script>
 <script>
 /*
@@ -76,6 +84,10 @@ replyService.remove(
 </script>
 
 <script>
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+	});
+
 	$(document).ready(function(){
 		//날짜 형식 바꾸는 함수 dateString
 		function dateString(date) {
@@ -107,11 +119,11 @@ replyService.remove(
 					}
 			});
 		}
-		
-		
+			
 		
 		//새 댓글 버튼 클릭 이벤트 처리
 		$("#new-reply-btn").click(function(){
+			$("#replyer-input").val(replyer);
 			$("#new-reply-modal").modal("show");
 		});
 		
@@ -119,7 +131,6 @@ replyService.remove(
 		//새 댓글 등록버튼 클릭 이벤트 처리
 		$("#reply-submit-btn").click(function(){
 			var reply = $("#reply-input").val();
-			var replyer = $("#replyer-input").val();
 			var data = {num:num, reply:reply, replyer:replyer};
 			
 			replyService.add(data, 
@@ -162,9 +173,27 @@ replyService.remove(
 		
 		//수정 버튼 이벤트 처리
 		$("#reply-modify-btn").click(function(){
+			var originalReplyer = $("#replyer-input2").val();
+			console.log("Original Replyer: " + originalReplyer);
+			
 			var rno = $("#rno-input2").val();
 			var reply = $("#reply-input2").val();
-			var data = {rno: rno, reply: reply};
+			var data = {rno: rno, reply: reply, replyer: originalReplyer};
+			
+			if (!replyer) {
+				alert("로그인 후에 수정이 가능합니다.");
+				$("#modify-reply-modal").modal("hide");
+				return;
+				
+			}
+			
+			
+			if (replyer != originalReplyer) {
+				alert("자신이 작성한 댓글만 수정이 가능합니다.");
+				$("#modify-reply-modal").modal("hide");
+				return;
+			}
+			
 			
 			replyService.update(
 				data,
@@ -179,8 +208,26 @@ replyService.remove(
 		
 		$("#reply-delete-btn").click(function(){
 			var rno = $("#rno-input2").val();
+			console.log("RNO: " + rno);
+			console.log("REPLYER: " + replyer);
+			
+			if (!replyer) {
+				alert("로그인 후에 삭제가 가능합니다.");
+				$("#modify-reply-modal").modal("hide");
+				return;
+				
+			}
+			var originalReplyer = $("#replyer-input2").val();
+			console.log("Original Replyer: " + originalReplyer);
+			
+			if (replyer != originalReplyer) {
+				alert("자신이 작성한 댓글만 삭제가 가능합니다.");
+				$("#modify-reply-modal").modal("hide");
+				return;
+			}
+			
 			replyService.remove(
-					rno, 
+					rno, replyer,
 					function(){
 						alert("삭제가 완료되었습니다.");
 						showList();
@@ -247,8 +294,13 @@ replyService.remove(
 					<c:param value="${cri.type }" name="type"></c:param>
 					<c:param value="${cri.keyword }" name="keyword"></c:param>
 				</c:url>
-				
-				<a href="${modifyLink }" class="btn btn-secondary"> 수정 </a>
+				<sec:authentication property="principal" var="pinfo"/>
+					<sec:authorize access="isAuthenticated()">
+						<c:if test="${pinfo.username eq todo.writer }">
+							<a href="${modifyLink }" class="btn btn-secondary"> 수정 </a>
+						</c:if>
+					</sec:authorize>			
+
 				
 			</div>
 		</div>
@@ -262,7 +314,9 @@ replyService.remove(
 				
 					<div class="card-header d-flex justify-content-between align-items-center">
 						<span>댓글 목록</span>
+						<sec:authorize access="isAuthenticated()">
 						<button class="btn btn-info" id="new-reply-btn">댓글 쓰기</button>
+						</sec:authorize>
 					</div>
 					
 					<div class="card-body">
@@ -300,7 +354,7 @@ replyService.remove(
 					</div>
 					<div class="form-group">
 						<label for="replyer-input" class="col-form-label">작성자</label>
-						<input type="text" class="form-control" id="replyer-input">
+						<input type="text" class="form-control" id="replyer-input" readonly>
 					</div>
 				</div>
 				

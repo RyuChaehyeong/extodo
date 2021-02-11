@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,11 +52,13 @@ public class TodoController {
 	//cri라는 이름을 인식을 못해서 다시 이름을 써준 것이다. 
 	
 	@GetMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public void register(@ModelAttribute("cri") Criteria cri) {
 		
 	}
 	
 	@PostMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public String register(TodoVO todo ,RedirectAttributes rttr) {
 		log.info("register: " + todo);
 		
@@ -78,7 +81,7 @@ public class TodoController {
 	//@ModelAttribute("cri") 이거 안쓰고 싶으면 jsp에서 criteria로 사용
 	
 	
-	
+	@PreAuthorize("principal.username == #todo.writer")
 	@PostMapping("/modify")
 	public String modify(TodoVO todo, Criteria cri, RedirectAttributes rttr) {
 		log.info("modify:" + todo);
@@ -97,8 +100,10 @@ public class TodoController {
 		return "redirect:/todo/list";
 	}
 	
+	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/remove")
-	public String remove(@RequestParam("num") Long num, Criteria cri, RedirectAttributes rttr) {
+	public String remove(@RequestParam("num") Long num, Criteria cri, RedirectAttributes rttr, String writer) {
+		
 		if (service.remove(num)) {
 			rttr.addFlashAttribute("result", "success");
 			rttr.addFlashAttribute("message", num + "번 글이 삭제되었습니다.");

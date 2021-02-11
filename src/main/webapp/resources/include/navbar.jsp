@@ -1,7 +1,28 @@
-<%@ tag language="java" pageEncoding="UTF-8"%>
+<%@page import="java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+.navbar {
+width: 1400px;
+}
+li {
+	font-weight: bold;
+
+}
+</style>
+</head>
+<body>
 <div class="container-sm mb-3">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -33,7 +54,7 @@
 	      
 	      <sec:authorize access="isAnonymous()">
 		      <li class="nav-item">
-		        <a  class="nav-link" href="/customLogin">로그인</a>
+		        <a class="nav-link" href="/customLogin">로그인</a>
 		      </li>
 	      </sec:authorize>
 	      
@@ -41,10 +62,11 @@
 		      <li class="nav-item">
 	      	<form action="/logout" method="post">
 		        <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-		        <button type="submit" class="btn btn-outline-dark btn-sm">로그아웃</button>
+		        <input type="submit" value="로그아웃"/>
 	      	</form>
 		      </li>
 	      </sec:authorize>
+	      
 	    </ul>
     
 	     <form action="${root }/todo/list" id="searchForm" class="form-inline my-2 my-lg-0">
@@ -63,3 +85,12 @@
 </nav>
 
 </div>
+<c:if test="${param.logout != null }">
+	<script type="text/javascript">
+		$(document).ready(function(){
+			alert("로그아웃하였습니다.");
+		});
+	</script>
+</c:if>
+</body>
+</html>

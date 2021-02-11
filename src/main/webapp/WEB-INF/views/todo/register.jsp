@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<u:navbar></u:navbar>
+     <u:navbar></u:navbar>
 <div class="container-sm mb-3">
 	<div class="row" style="margin-left: 5px;">
 		<div class="col-12">
@@ -31,7 +32,7 @@
 	<div class="row">
 		<div class="col-12">
 		<form method="post" action="${root }/todo/register" style="border: 1px solid gray; padding: 20px; margin: 15px">
-
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"/>
 
 		  <div class="form-column">
 		    <div class="form-group col-md-12">
@@ -40,7 +41,7 @@
 		    </div>
 		    <div class="form-group col-md-12">
 		      <label for="input-writer">쓴이</label>
-		      <input name="writer" type="text" class="form-control" id="input-writer">
+		      <input name="writer" value='<sec:authentication property="principal.member.id"/>' readonly type="text" class="form-control" id="input-writer">
 		    </div>
 		  </div>
 	  
