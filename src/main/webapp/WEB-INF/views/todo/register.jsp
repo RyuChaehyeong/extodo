@@ -41,7 +41,8 @@
 		    </div>
 		    <div class="form-group col-md-12">
 		      <label for="input-writer">쓴이</label>
-		      <input name="writer" value='<sec:authentication property="principal.member.id"/>' readonly type="text" class="form-control" id="input-writer">
+		      <input name="writer" value='<sec:authentication property="principal.member.id"/>' 
+		      readonly type="text" class="form-control" id="input-writer">
 		    </div>
 		  </div>
 	  

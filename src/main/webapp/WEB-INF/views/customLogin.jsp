@@ -16,10 +16,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Custom Login Page</h1>
+
+	<div class="container-sm">
+		<div class="row justify-content-center">
+			<h1>로그인</h1>
+		</div>
+	</div>
+
 <h2><c:out value="${error }"/></h2>
 <h2><c:out value="${logout }"/></h2>
-		<div class="container">
+		
+	<div class="container-sm">
+		<div class="row justify-content-center">
 			<form action="/login" method="post">
 				<div class="form-group">
 					아이디 <input type="text" name="username" class="form-control" id="exampleInputEmail1">
@@ -34,6 +42,7 @@
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 				<button id="loginBtn" type="submit">로그인</button>
 			</form>
+		</div>
 		</div>
 </body>
 </html>
