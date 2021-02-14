@@ -35,6 +35,13 @@
 		      <li class="nav-item">
 		        <a  class="nav-link" href="/customLogin">로그인</a>
 		      </li>
+		      
+		      <li class="nav-item">
+		        <a  class="nav-link" href="/member/register">회원가입</a>
+		      </li>
+		      
+		      
+		      
 	      </sec:authorize>
 	      
 	      <sec:authorize access="isAuthenticated()">

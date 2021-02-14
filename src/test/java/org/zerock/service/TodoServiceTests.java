@@ -77,7 +77,7 @@ public class TodoServiceTests {
 			return;
 		}
 		
-		todo.setTitle("또수정된 할일 계획은 어기라고 있는거여");
+		todo.setTitle("흠냐흠냐");
 		
 		log.info("MODIFY RESULT: " + service.modify(todo));
 	}
