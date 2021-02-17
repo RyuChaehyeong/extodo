@@ -40,5 +40,12 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/osdt_cert.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/osdt_core.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ucp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fluid/Documents/java email lib/dsn.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fluid/Documents/java email lib/gimap.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fluid/Documents/java email lib/imap.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fluid/Documents/java email lib/javax.mail-api-1.4.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fluid/Documents/java email lib/mailapi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fluid/Documents/java email lib/pop3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fluid/Documents/java email lib/smtp.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

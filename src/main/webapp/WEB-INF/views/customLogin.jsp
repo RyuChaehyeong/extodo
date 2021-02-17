@@ -40,6 +40,9 @@
 				</div>
 				
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
+				
+				<a href="/member/findid">아이디찾기</a>/<a href="/member/findpw">비밀번호찾기</a> 
+				<br>
 				<button id="loginBtn" type="submit">로그인</button>
 			</form>
 		</div>

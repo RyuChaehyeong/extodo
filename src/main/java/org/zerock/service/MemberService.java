@@ -9,4 +9,5 @@ public interface MemberService {
 	
 	public int registerAuth(AuthVO authVo);
 
+	public String get(String email);
 }

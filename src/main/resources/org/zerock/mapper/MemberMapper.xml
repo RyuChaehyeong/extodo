@@ -42,5 +42,10 @@
 		values (#{id}, #{auth})
 	</insert>
 
+	<select id="get" resultType="String">
+		select member_id
+		from tbl_member_existing
+		where member_email = #{email}
+	</select>
 
 </mapper>

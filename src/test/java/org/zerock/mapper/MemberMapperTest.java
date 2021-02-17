@@ -55,9 +55,14 @@ public class MemberMapperTest {
 		authVo.setId("yoopang");
 		authVo.setAuth("ROLE_MEMBER");
 		mapper.registerAuth(authVo);
-		
-		
-		
+
+	}
+	
+	@Test
+	public void testGet() {
+		String email = "fluid15@naver.com";
+		String id = mapper.get(email);
+		log.info(id);
 	}
 	
 	

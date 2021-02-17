@@ -10,4 +10,6 @@ public interface MemberMapper {
 	public int register(MemberVO vo);
 	
 	public int registerAuth(AuthVO authVo);
+	
+	public String get(String email);
 }

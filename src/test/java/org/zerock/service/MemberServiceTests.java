@@ -56,4 +56,11 @@ public class MemberServiceTests {
 		
 		service.registerAuth(authVo);
 	}
+	
+	@Test
+	public void getTest() {
+		String email = "fluid15@naver.com";
+		String id = service.get(email);
+		log.info(id);
+	}
 }
